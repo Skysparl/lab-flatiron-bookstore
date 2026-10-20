@@ -44,4 +44,43 @@ const bookStore = {
 }
 
 // Write your code here!
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Update the Header (Store Name)
+  const headerElement = document.querySelector("#header h1"); 
+  if (headerElement && typeof bookStore !== "undefined") {
+    headerElement.textContent = bookStore.name;
+  }
 
+  // 2. Select the main book list container in the DOM
+  const bookListContainer = document.querySelector("#book-list"); 
+
+  // 3. Create elements and append them for every book in the catalog
+  if (typeof bookStore !== "undefined" && bookStore.books) {
+    bookStore.books.forEach(book => {
+      // Create container for individual book
+      const bookLi = document.createElement("li");
+      bookLi.className = "book";
+
+      // Create title element
+      const titleH3 = document.createElement("h3");
+      titleH3.textContent = book.title;
+
+      // Create author element
+      const authorP = document.createElement("p");
+      authorP.textContent = book.author;
+
+      // Create image element (using book.imageUrl based on the starter data)
+      const imgElement = document.createElement("img");
+      imgElement.src = book.imageUrl;
+      imgElement.alt = book.title;
+
+      // Append sub-elements to the book list item container
+      bookLi.appendChild(imgElement);
+      bookLi.appendChild(titleH3);
+      bookLi.appendChild(authorP);
+
+      // Append the book item to the main book list container on the DOM
+      bookListContainer.appendChild(bookLi);
+    });
+  }
+});
